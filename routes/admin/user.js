@@ -7,5 +7,5 @@ const { validateSignupRequest, isRequesteValidated, validateSigninRequest } = re
 
 router.post('/admin/signup',validateSignupRequest,isRequesteValidated ,Signup)
 router.post('/admin/signin',validateSigninRequest,isRequesteValidated ,Signin)
- router.post('/profile',requireSignIn,  Profile)
+//  router.post('/profile',requireSignIn,  Profile)
 module.exports=router

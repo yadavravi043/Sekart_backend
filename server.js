@@ -7,11 +7,17 @@ const db=process.env.DATABASE
 const bodyparser=require('body-parser')
 const userRoutes=require('./routes/user')
 const adminRoutes=require('./routes/admin/user')
+const categoryRoutes =require('./routes/category')
+const productRoutes=require('./routes/product')
+
+
 
 // app.use(bodyparser())
 app.use(express.json())
 app.use('/api',userRoutes)
 app.use('/api',adminRoutes)
+app.use('/api',categoryRoutes)
+app.use('/api',productRoutes)
 
 
 
