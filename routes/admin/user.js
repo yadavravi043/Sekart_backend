@@ -1,9 +1,11 @@
 const express =require('express')
 const router=express.Router()
-const {Signup,Signin,Profile,requireSignIn}=require('../../controller/admin/auth')
+const {Signup,Signin,Profile}=require('../../controller/admin/auth')
+const {requireSignIn} =require('../../common-middleware/index')
+const { validateSignupRequest, isRequesteValidated, validateSigninRequest } = require('../../validators/auth')
 
 
-router.post('/admin/signup',Signup)
-router.post('/admin/signin',Signin)
+router.post('/admin/signup',validateSignupRequest,isRequesteValidated ,Signup)
+router.post('/admin/signin',validateSigninRequest,isRequesteValidated ,Signin)
  router.post('/profile',requireSignIn,  Profile)
 module.exports=router
