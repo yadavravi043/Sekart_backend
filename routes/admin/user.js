@@ -5,7 +5,7 @@ const {requireSignIn} =require('../../common-middleware/index')
 const { validateSignupRequest, isRequesteValidated, validateSigninRequest } = require('../../validators/auth')
 
 
-router.post('/admin/signup',validateSignupRequest,isRequesteValidated ,Signup)
-router.post('/admin/signin',validateSigninRequest,isRequesteValidated ,Signin)
+router.post('/signup',validateSignupRequest,isRequesteValidated ,Signup)
+router.post('/signin',validateSigninRequest,isRequesteValidated ,Signin)
 //  router.post('/profile',requireSignIn,  Profile)
 module.exports=router

@@ -3,6 +3,6 @@ const { requireSignIn, adminMiddleWare } = require('../common-middleware')
 const router=express.Router()
 const {addCategory, getCategories}=require('../controller/category')
 
-router.post('/category/create',requireSignIn,adminMiddleWare,  addCategory)
-router.get('/category/getcategory',getCategories)
+router.post('/create',requireSignIn,adminMiddleWare,  addCategory)
+router.get('/getcategory',getCategories)
 module.exports=router

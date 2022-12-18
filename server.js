@@ -15,9 +15,9 @@ const productRoutes=require('./routes/product')
 // app.use(bodyparser())
 app.use(express.json())
 app.use('/api',userRoutes)
-app.use('/api',adminRoutes)
-app.use('/api',categoryRoutes)
-app.use('/api',productRoutes)
+app.use('/api/admin',adminRoutes)
+app.use('/api/category',categoryRoutes)
+app.use('/api/product',productRoutes)
 
 
 
