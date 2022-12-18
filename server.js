@@ -9,15 +9,17 @@ const userRoutes=require('./routes/user')
 const adminRoutes=require('./routes/admin/user')
 const categoryRoutes =require('./routes/category')
 const productRoutes=require('./routes/product')
-
-
+const cartRoutes=require('./routes/cart')
+const path=require('path')
 
 // app.use(bodyparser())
+app.use('/public',express.static(path.join(__dirname,'uploads')))
 app.use(express.json())
 app.use('/api',userRoutes)
 app.use('/api/admin',adminRoutes)
 app.use('/api/category',categoryRoutes)
 app.use('/api/product',productRoutes)
+app.use('/api/user/cart',cartRoutes)
 
 
 
