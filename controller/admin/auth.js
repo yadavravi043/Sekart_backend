@@ -3,11 +3,14 @@ const shortId = require("shortid");
 const jwt = require("jsonwebtoken"); //for creating token
 const expressJwt=require('express-jwt') //for verify token
 exports.Signup = (req, res) => {
-  User.findOne({ email: req.body.email }).exec((error, user) => {
-    if (user) {
+  User.findOne({ email: req.body.email })
+  .exec((error, user) => {
+    if (error) {
+      return res.status(400).json({ error });
+    }
+    if(user){
       return res.status(400).json({ msg: "admin already registered" });
     }
-  });
   const { firstName, lastName, email, password } = req.body;
   const newUser = new User({
     firstName,
@@ -25,6 +28,8 @@ exports.Signup = (req, res) => {
       return res.status(201).json({ msg:"admin created successfully"});
     }
   });
+});
+
 };
 exports.Signin = (req, res) => {
   const { email, password } = req.body;

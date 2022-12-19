@@ -7,7 +7,6 @@ exports.Signup = (req, res) => {
     if (user) {
       return res.status(400).json({ msg: "user already registered" });
     }
-  });
   const { firstName, lastName, email, password } = req.body;
   const newUser = new User({
     firstName,
@@ -24,6 +23,8 @@ exports.Signup = (req, res) => {
       return res.status(201).json({ msg:"user created" });
     }
   });
+});
+
 };
 exports.Signin = (req, res) => {
   const { email, password } = req.body;
