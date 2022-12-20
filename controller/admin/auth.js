@@ -2,7 +2,7 @@ const User = require("../../models/user");
 const shortId = require("shortid");
 const jwt = require("jsonwebtoken"); //for creating token
 const expressJwt=require('express-jwt') //for verify token
-exports.Signup = (req, res) => {
+exports.signup = (req, res) => {
   User.findOne({ email: req.body.email })
   .exec((error, user) => {
     if (error) {
@@ -31,7 +31,7 @@ exports.Signup = (req, res) => {
 });
 
 };
-exports.Signin = (req, res) => {
+exports.signin = (req, res) => {
   const { email, password } = req.body;
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (error) {
@@ -41,6 +41,7 @@ exports.Signin = (req, res) => {
       if (user.authenticate(req.body.password)&& user.role==='admin') {
         const token = jwt.sign({_id:user._id,role:user.role},process.env.JWT_SECRET,{expiresIn:'10d'});
         const {_id,firstName,lastName,fullname,email,role}=user
+        res.cookie('token',token,{expiresIn:'1d'})  // cookie in server
         res.status(200).json({token,user:{_id,firstName,lastName,fullname,email,role}})
       }else{
         res.status(400).json({msg:"invalid password"})
@@ -59,3 +60,9 @@ exports.Signin = (req, res) => {
 exports.Profile= (req,res)=>{
     res.status(200).send("profile hao")
 }
+exports.signout = (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({
+    message: "Signout successfully...!"
+  });
+};
