@@ -4,7 +4,7 @@ const router=express.Router()
 const multer =require('multer')
 const shortid=require('shortid')
 const path=require('path')
-const {createProduct}=require('../controller/product')
+const {createProduct,getProducts}=require('../controller/product')
 
 
 //we can see the uploaded file in folder(human readable)
@@ -22,4 +22,6 @@ const upload = multer({storage });
 
 //router.post('/create',requireSignIn,adminMiddleWare, upload.single('productPicture'), createProduct) //for single image
 router.post('/create',requireSignIn,adminMiddleWare, upload.array('productPicture'), createProduct)  //for multiple image
+router.post("/product/getProducts",requireSignIn,adminMiddleWare, getProducts);
+
 module.exports=router

@@ -1,5 +1,8 @@
 const Product=require('../models/product')
-const slugify=require('slugify')
+const shortid = require("shortid");
+const slugify = require("slugify");
+const Category = require("../models/category");
+
 exports.createProduct=(req,res)=>{
     // res.status(200).json({file:req.file,body:req.body})       //single image
     //  res.status(200).json({file:req.files,body:req.body})    //multiple image uploadation
@@ -31,3 +34,11 @@ exports.createProduct=(req,res)=>{
     }
   });
 }
+exports.getProducts = async (req, res) => {
+  const products = await Product.find({ createdBy: req.user._id })
+    .select("_id name price quantity slug description productPictures category")
+    .populate({ path: "category", select: "_id name" })
+    .exec();
+
+  res.status(200).json({ products });
+};

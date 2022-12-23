@@ -2,7 +2,7 @@ const Category=require('../models/category')
 const slugify =require('slugify')
 
 
-
+//sub function of getcatogories for recusive get catogories
 function createCategories(categories, parentId = null) {
     const categoryList = [];
     let category;
@@ -32,6 +32,7 @@ function createCategories(categories, parentId = null) {
 
 
 exports.addCategory=(req,res)=>{
+  console.log("req of addcategory",req.body)
   const categoryObj={
     name:req.body.name,
     slug:slugify(req.body.name)
@@ -39,8 +40,10 @@ exports.addCategory=(req,res)=>{
     if (req.file) {
       categoryObj.categoryImage =process.env.API+ '/public/' + req.file.filename;
     }
-    if(req.body.parentId){
-       categoryObj.parentId=req.body.parentId
+    if((req.body.parentId)=="undefined" ||(req.body.parentId)=="Select Category"){
+      categoryObj.parentId=undefined
+    }else{
+      categoryObj.parentId=req.body.parentId
     }
     const cat=new Category(categoryObj)
     cat.save((error,category)=>{
@@ -57,6 +60,7 @@ exports.getCategories = (req, res) => {
       if (error) return res.status(400).json({ error });
       if (categories) {
         const categoryList = createCategories(categories);
+        console.log(categoryList,"backend res category test")
         res.status(200).json({ categoryList });
       }
     });
