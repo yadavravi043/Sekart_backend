@@ -60,7 +60,6 @@ exports.getCategories = (req, res) => {
       if (error) return res.status(400).json({ error });
       if (categories) {
         const categoryList = createCategories(categories);
-        console.log(categoryList,"backend res category test")
         res.status(200).json({ categoryList });
       }
     });
