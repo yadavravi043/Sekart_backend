@@ -2,17 +2,19 @@ const User = require("../models/user");
 const shortId = require("shortid");
 const jwt = require("jsonwebtoken"); //for creating token
 const expressJwt=require('express-jwt') //for verify token
+const bcrypt = require("bcrypt");
 exports.Signup = (req, res) => {
-  User.findOne({ email: req.body.email }).exec((error, user) => {
+  User.findOne({ email: req.body.email }).exec(async(error, user) => {
     if (user) {
       return res.status(400).json({ msg: "user already registered" });
     }
   const { firstName, lastName, email, password } = req.body;
+  const hash_password = await bcrypt.hash(password, 10);
   const newUser = new User({
     firstName,
     lastName,
     email,
-    password,
+    hash_password,
     username: shortId.generate(),
   });
   newUser.save((error, data) => {

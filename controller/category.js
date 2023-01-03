@@ -32,7 +32,6 @@ function createCategories(categories, parentId = null) {
 
 
 exports.addCategory=(req,res)=>{
-  console.log("req of addcategory",req.body)
   const categoryObj={
     name:req.body.name,
     slug:slugify(req.body.name)

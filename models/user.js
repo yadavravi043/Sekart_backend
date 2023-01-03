@@ -50,10 +50,11 @@ const userSchema= new mongoose.Schema({
 
 
 //for bcrypting plain password
-userSchema.virtual('password')
-.set(function(password){
-    this.hash_password=bcrypt.hashSync(password,10)
-})
+//we can bcrypt password asynchronously in contoller
+// userSchema.virtual('password')
+// .set(function(password){
+//     this.hash_password=bcrypt.hashSync(password,10)
+// })
 
 userSchema.virtual('fullname')
 .get(function(){
@@ -61,8 +62,8 @@ userSchema.virtual('fullname')
 })
 //for checking plain from bcrypted password
 userSchema.methods={
-    authenticate:function(password){
-        return bcrypt.compareSync(password,this.hash_password)
+    authenticate: async function(password){
+        return await bcrypt.compare(password,this.hash_password)
     }
 
 }
