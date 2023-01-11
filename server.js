@@ -22,7 +22,7 @@ app.use('/api',userRoutes)
 app.use('/api/admin/initialdata',initialDataRoutes)
 app.use('/api/admin',adminRoutes)
 app.use('/api/category',categoryRoutes)
-app.use('/api/product',productRoutes)
+app.use('/api',productRoutes)
 app.use('/api/user/cart',cartRoutes)
 
 
