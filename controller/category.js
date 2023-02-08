@@ -26,11 +26,6 @@ function createCategories(categories, parentId = null) {
   
     return categoryList;
   }
-
-
-
-
-
 exports.addCategory=(req,res)=>{
   const categoryObj={
     name:req.body.name,
@@ -63,3 +58,6 @@ exports.getCategories = (req, res) => {
       }
     });
   };
+  exports.updateCategories=(req,res)=>{
+    res.status(200).json("updatedcategies")
+  }
