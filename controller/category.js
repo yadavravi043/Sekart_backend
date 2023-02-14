@@ -1,6 +1,6 @@
 const Category=require('../models/category')
 const slugify =require('slugify')
-
+const shortid=require('shortid')
 
 //sub function of getcatogories for recusive get catogories
 function createCategories(categories, parentId = null) {
@@ -29,6 +29,8 @@ function createCategories(categories, parentId = null) {
 exports.addCategory=(req,res)=>{
   const categoryObj={
     name:req.body.name,
+    //slug is unique we cannot create duplicate even after deletion so we use shortid
+    // slug:`${slugify(req.body.name)}-${shortid.generate()}`
     slug:slugify(req.body.name)
     }
     if (req.file) {
@@ -100,7 +102,7 @@ exports.getCategories = (req, res) => {
     for (let i = 0; i < ids.length; i++) {
       const deleteCategory = await Category.findOneAndDelete({
         _id: ids[i]._id,
-        createdBy: req.user._id,
+        // createdBy: req.user._id,
       });
       deletedCategories.push(deleteCategory);
     }
